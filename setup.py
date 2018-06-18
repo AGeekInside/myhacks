@@ -11,11 +11,15 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 # get the dependencies and installs
-with open(path.join(here, 'requirements.txt'), encoding='utf-8') as f:
-    all_reqs = f.read().split('\n')
+with open(path.join(here, 'scripts.txt'), encoding='utf-8') as f:
+    all_entries = f.read().split('\n')
+
+# get the dependencies and installs
+#with open(path.join(here, 'requirements.txt'), encoding='utf-8') as f:
+    #all_reqs = f.read().split('\n')
 
 install_requires = ['click', 'pytube']
-dependency_links = [x.strip().replace('git+', '') for x in all_reqs if x.startswith('git+')]
+#dependency_links = [x.strip().replace('git+', '') for x in all_reqs if x.startswith('git+')]
 
 setup(
     name='myhacks',
@@ -35,6 +39,6 @@ setup(
     include_package_data=True,
     author='Marc Brooks',
     install_requires=install_requires,
-    dependency_links=dependency_links,
-    author_email='mbrooks@mitre.org'
+    #dependency_links=dependency_links,
+    author_email='marcwbrooks@mitre.org',
 )
