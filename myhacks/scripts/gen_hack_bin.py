@@ -1,5 +1,3 @@
-#!/home/mbrooks/.local/share/virtualenvs/mbrooks-hpmZt1LH/bin/python
-
 import click
 import jinja2
 import os
@@ -8,7 +6,7 @@ import stat
 import myhacks as myh
 
 
-file_template = '''#!/home/mbrooks/.local/share/virtualenvs/mbrooks-hpmZt1LH/bin/python
+file_template = '''
 
 import click
 import os
@@ -27,7 +25,7 @@ if __name__ == '__main__':
     run_{{ execname }}()
 '''
 
-hack_bin_dir = '/home/mbrooks/projs/myhacks/bin/'
+hack_bin_dir = '/home/mbrooks/projs/myhacks/myhacks/scripts/'
 
 @click.command()
 @click.argument('execname')
@@ -46,6 +44,10 @@ def gen_bin(execname):
         f.write(new_hack_bin)
 
     myh.make_executable(outfile)
+
+    entry_point = f'{execname}=myhacks.scripts.{execname}:run_{execname}'
+
+    
 
 if __name__ == '__main__':
     gen_bin()

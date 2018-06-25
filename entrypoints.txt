@@ -1,0 +1,3 @@
+myip=myhacks.scripts.myip:run_myip
+gitoverview=myhacks.scripts.gitoverview:run_checkGit
+genhackbin=myhacks.scripts.gen_hack_bin:gen_bin

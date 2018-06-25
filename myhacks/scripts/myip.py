@@ -1,5 +1,3 @@
-#!/home/mbrooks/.local/share/virtualenvs/mbrooks-hpmZt1LH/bin/python
-
 import better_exceptions
 import click
 import os
