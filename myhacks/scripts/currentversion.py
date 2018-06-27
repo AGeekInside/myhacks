@@ -19,6 +19,16 @@ def check_version_info(cfg_file):
                 return version
     return None
 
+def check_cfg_files(cfg_files = ['.bumpversion.cfg', 'setup.cfg']):
+    '''Checks the given config files for bumpversion version.'''
+
+    for wrk_file in cfg_files:
+        if os.path.isfile(wrk_file):
+            version = check_version_info(wrk_file)
+
+    return version
+
+
 
 @click.command()
 @click.argument('parameter', required=False)
@@ -27,13 +37,10 @@ def run_currVersion(parameter):
        in the current directory.'''
 
     cfg_files = ['.bumpversion.cfg', 'setup.cfg']
-    cfg_file = None
-    for wrk_file in cfg_files:
-        if os.path.isfile(wrk_file):
-            version = check_version_info(wrk_file)
-            if version:
-                print(f'Current version: {version}')
-                sys.exit(0)
+    version = check_cfg_files(cfg_files)
+    if version:
+        print(f'Current version: {version}')
+        sys.exit(0)
 
     print(f'No bumpversion config found.')
 
