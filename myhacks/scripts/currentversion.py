@@ -4,6 +4,23 @@ import sys
 
 import myhacks as myh
 
+def check_version_info(cfg_file):
+    '''Checks for bumpversion version info.
+
+       If found, prints it out and exits.
+
+       Returns: None, if nothing found.  '''
+
+    with open(cfg_file, 'r') as f:
+        for i, line in enumerate(f.readlines()):
+            version_line_start = 'current_version'
+            if line.startswith(version_line_start):
+                version = line.split('=')[1].strip()
+                print(f'Current version: {version}')
+                sys.exit(0)
+    return None
+
+
 @click.command()
 @click.argument('parameter', required=False)
 def run_currVersion(parameter):
@@ -14,22 +31,9 @@ def run_currVersion(parameter):
     cfg_file = None
     for wrk_file in cfg_files:
         if os.path.isfile(wrk_file):
-            cfg_file = wrk_file
+            check_version_info(wrk_file)
 
-    if not cfg_file:
-        print(f'No bumpversion config found.')
-    else:
-        try:
-            with open(cfg_file, 'r') as f:
-                for i, line in enumerate(f.readlines()):
-                    version_line_start = 'current_version'
-                    if line.startswith(version_line_start):
-                        version = line.split('=')[1].strip()
-                        print(f'Current version: {version}')
-                        sys.exit(0)
-            print('No version information found.')
-        except FileNotFoundError as ex:
-            print(f'No bumpversion config file "{cfg_file}" found.')
+    print(f'No bumpversion config found.')
 
 
 if __name__ == '__main__':
