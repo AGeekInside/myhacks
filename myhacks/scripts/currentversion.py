@@ -1,5 +1,3 @@
-#!/home/mbrooks/.local/share/virtualenvs/mbrooks-hpmZt1LH/bin/python
-
 import click
 import os
 import sys
