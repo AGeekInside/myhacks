@@ -16,8 +16,7 @@ def check_version_info(cfg_file):
             version_line_start = 'current_version'
             if line.startswith(version_line_start):
                 version = line.split('=')[1].strip()
-                print(f'Current version: {version}')
-                sys.exit(0)
+                return version
     return None
 
 
@@ -31,7 +30,10 @@ def run_currVersion(parameter):
     cfg_file = None
     for wrk_file in cfg_files:
         if os.path.isfile(wrk_file):
-            check_version_info(wrk_file)
+            version = check_version_info(wrk_file)
+            if version:
+                print(f'Current version: {version}')
+                sys.exit(0)
 
     print(f'No bumpversion config found.')
 
