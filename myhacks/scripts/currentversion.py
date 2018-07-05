@@ -21,7 +21,7 @@ def check_version_info(cfg_file):
 
 def check_cfg_files(cfg_files = ['.bumpversion.cfg', 'setup.cfg']):
     '''Checks the given config files for bumpversion version.'''
-
+    version = None
     for wrk_file in cfg_files:
         if os.path.isfile(wrk_file):
             version = check_version_info(wrk_file)
