@@ -20,7 +20,7 @@ URL = 'https://github.com/me/myproject'
 EMAIL = 'marcwbrooks@gmail.com'
 AUTHOR = 'Marc Brooks'
 REQUIRES_PYTHON = '>=3.6.0'
-VERSION = '10.1.0' 
+VERSION = '11.0.0'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
@@ -91,7 +91,6 @@ class UploadCommand(Command):
         self.status('Pushing git tags…')
         os.system('git tag v{0}'.format(about['__version__']))
         os.system('git push --tags')
-        
         sys.exit()
 
 

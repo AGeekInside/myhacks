@@ -1,3 +1,3 @@
-__vers__ = '10.1.0'
+__version__ = '11.0.0'
 
 from .hacks import *
