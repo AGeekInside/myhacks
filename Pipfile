@@ -11,6 +11,8 @@ pyinstaller = "*"
 pudb = "*"
 better-exceptions = "*"
 tabulate = "*"
+"e1839a8" = {path = ".", editable = true}
+tqdm = "*"
 
 [dev-packages]
 bumpversion = "*"

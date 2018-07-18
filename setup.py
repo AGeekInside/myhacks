@@ -29,6 +29,7 @@ REQUIRED = [
   'jinja2',
   'pytube',
   'tabulate',
+  'tqdm',
 ]
 
 ENTRY_POINTS = []

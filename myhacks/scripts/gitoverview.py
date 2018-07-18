@@ -9,7 +9,8 @@ projs_dir = '/home/mbrooks/projs'
 @click.command()
 @click.argument('rootdir', required=False)
 @click.option('--all/--changes', default=False)
-def run_checkGit(rootdir, all):
+@click.option('--fetch/--no-fetch', default=False)
+def run_checkGit(rootdir, all, fetch):
     '''Output the status of git repos in the projs directory.'''
     if not rootdir:
         rootdir = projs_dir
@@ -17,7 +18,9 @@ def run_checkGit(rootdir, all):
     repos = myh.find_repos(rootdir)
     print(f'Found {len(repos)} repos in {rootdir}.')
 
-    repo_info = myh.compile_repo_info(repos, all=all)
+    repo_info = myh.compile_repo_info(repos,
+                                      all=all,
+                                      fetch=fetch)
     print(tabulate(repo_info, headers="keys"))
 
 

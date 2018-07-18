@@ -2,7 +2,9 @@ import os
 import pstats
 import socket
 import subprocess
+import threading
 
+from tqdm import tqdm
 
 def get_hostname_ip():
     '''Returns the hostname and ip of the current machine'''
@@ -38,8 +40,9 @@ def run(s, output_cmd=True, stdout=False):
 
     p_out = subprocess.run(s,
                            stdout=subprocess.PIPE,
+                           stderr=subprocess.PIPE,
                            shell=True,
-                           check=True)
+                           check=False)
 
     if stdout:
         return p_out.stdout.decode('utf-8').strip()
@@ -59,7 +62,7 @@ def restart_docker():
 def term_run(s):
     '''Runs a command in a new terminal.'''
 
-    cmd = f'gnome-terminal -e "{s}"'
+    cmd = f'terminator -x /usr/env bash -c "{s}"'
     run(cmd, output_cmd=False)
 
 
@@ -125,10 +128,28 @@ def get_remote_branches():
     cmd = 'git branch -r'
 
 
+def git_fetch(repo):
+    '''Runs fetch for the given repo.'''
+
+    fetch_cmd = f'bash -c "cd {repo} ; git fetch"'
+    run(fetch_cmd, output_cmd=False)
 
 
+def check_remote_commits(repo_dir, branch):
+    '''Fetchs remote changes and reports if there are any
+       remote changes in the repo.'''
 
-def get_git_info(repo_dir):
+    num_changes = 0
+
+    git_fetch(repo_dir)
+    num_changes_cmd = f'bash -c "cd {repo_dir} ; git cherry {branch} origin/{branch} | wc -l"'
+
+    num_changes = run(num_changes_cmd, output_cmd=False, stdout=True)
+    return num_changes 
+
+
+def get_git_info(repo_dir,
+                 fetch=False):
     '''Returns info a git repo.'''
 
     name = repo_dir.split('/')[-1]
@@ -144,12 +165,34 @@ def get_git_info(repo_dir):
         'changes?': changes,
     }
 
+    if fetch:
+        git_info['rmt_changes?'] = check_remote_commits(repo_dir, current_branch)
+
     return git_info
 
 
+def process_repo(repo, change_only, fetch, barrier):
+    '''Retrieves repo info.'''
+
+    global git_info
+
+    repo_info = get_git_info(repo, fetch)
+    if change_only:
+        if repo_info['changes?']:
+            for key in repo_info:
+                git_info[key].append(repo_info[key])
+    else:
+        for key in repo_info:
+            git_info[key].append(repo_info[key])
+
+
 def compile_repo_info(repos,
-                      all=False):
+                      all=False,
+                      fetch=False):
     '''Creates info for tabulate output.'''
+
+    # global to allow for threading work
+    global git_info
 
     git_info = {
         'name': [],
@@ -158,16 +201,21 @@ def compile_repo_info(repos,
         'changes?': [],
     }
 
+    if fetch:
+        git_info['rmt_changes?'] = []
+
     change_only = not all
-    for repo in repos:
-        repo_info = get_git_info(repo)
-        if change_only:
-            if repo_info['changes?']:
-                for key in repo_info:
-                    git_info[key].append(repo_info[key])
-        else:
-            for key in repo_info:
-                git_info[key].append(repo_info[key])
+
+    max_ = len(repos)
+    barrier = threading.Barrier(max_ + 1)
+    threads = []
+    for i, repo in enumerate(repos):
+        t = threading.Thread(target=process_repo, args=(repo, change_only, fetch, barrier))
+        threads.append(t)
+        t.start()
+
+    for thread in threads:
+        thread.join()
 
     return git_info
 
