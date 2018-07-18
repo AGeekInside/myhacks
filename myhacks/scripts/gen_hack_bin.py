@@ -25,7 +25,8 @@ if __name__ == '__main__':
     run_{{ execname }}()
 '''
 
-hack_bin_dir = '/home/mbrooks/projs/myhacks/myhacks/scripts/'
+
+hack_bin_dir = myh.MYHACKS_DIR
 
 @click.command()
 @click.argument('execname')
@@ -47,7 +48,8 @@ def gen_bin(execname):
 
     entry_point = f'{execname}=myhacks.scripts.{execname}:run_{execname}'
 
-    
+    print(f'entry_point: {entry_point}')
+
 
 if __name__ == '__main__':
     gen_bin()
