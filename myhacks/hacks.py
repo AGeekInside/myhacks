@@ -4,6 +4,7 @@ import socket
 import subprocess
 import threading
 
+from collections import OrderedDict
 from tqdm import tqdm
 
 def get_hostname_ip():
@@ -171,30 +172,46 @@ def get_git_info(repo_dir,
     return git_info
 
 
-def process_repo(repo, change_only, fetch, barrier):
+def process_repo(repo, fetch):
     '''Retrieves repo info.'''
 
     global git_info
 
     repo_info = get_git_info(repo, fetch)
-    if change_only:
-        if repo_info['changes?']:
-            for key in repo_info:
-                git_info[key].append(repo_info[key])
-    else:
-        for key in repo_info:
-            git_info[key].append(repo_info[key])
+
+    git_info[repo_info['name']] = repo_info
 
 
 def compile_repo_info(repos,
                       all=False,
                       fetch=False):
-    '''Creates info for tabulate output.'''
+    '''Compiles all the information about found repos.'''
 
     # global to allow for threading work
     global git_info
 
-    git_info = {
+    git_info = {}
+
+    max_ = len(repos)
+    threads = []
+    for i, repo in enumerate(repos):
+        t = threading.Thread(target=process_repo, args=(repo, fetch))
+        threads.append(t)
+        t.start()
+
+    for thread in threads:
+        thread.join()
+
+    git_info = OrderedDict(sorted(git_info.items(), key=lambda t: t[0]))
+
+    output_table = create_repo_table(git_info, fetch, all)
+
+    return output_table
+
+
+def create_repo_table(git_info, fetch, all):
+    '''Creates a table for output by tabulate.'''
+    repo_table = {
         'name': [],
         'num_branches': [],
         'branch': [],
@@ -202,22 +219,18 @@ def compile_repo_info(repos,
     }
 
     if fetch:
-        git_info['rmt_changes?'] = []
-
+        repo_table['rmt_changes?'] = []
     change_only = not all
 
-    max_ = len(repos)
-    barrier = threading.Barrier(max_ + 1)
-    threads = []
-    for i, repo in enumerate(repos):
-        t = threading.Thread(target=process_repo, args=(repo, change_only, fetch, barrier))
-        threads.append(t)
-        t.start()
+    for repo in git_info:
+        for key in git_info[repo]:
+            if change_only:
+                if git_info[repo]['changes?']:
+                    repo_table[key].append(git_info[repo][key])
+            else:
+                repo_table[key].append(git_info[repo][key])
 
-    for thread in threads:
-        thread.join()
-
-    return git_info
+    return repo_table
 
 
 def find_repos(root):
