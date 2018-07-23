@@ -15,7 +15,9 @@ def run_pymodinfo(module, internal):
         mod_info = dir(work_module)
 
         for entry in mod_info:
-            
+            if internal:
+                print(f'entry')
+            elif 
         print(f'{mod_info}')
     except Exception:
         print(f'Error importing {module}')
