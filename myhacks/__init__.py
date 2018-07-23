@@ -2,8 +2,9 @@ __version__ = '11.0.0'
 
 from .hacks import *
 
-MYHACKS_DIR="/home/mbrooks/projs/myhacks"
-PROJS_DIR="/home/mbrooks/projs"
+MYHACKS_DIR="/home/mbrooks/projs/myhacks/"
+MYHACKSBIN_DIR=f"{MYHACKS_DIR}myhacks/scripts/"
+PROJS_DIR="/home/mbrooks/projs/"
 OUTPUTS=[
     'fancy_grid',
     'grid',

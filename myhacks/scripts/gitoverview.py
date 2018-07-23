@@ -15,7 +15,7 @@ import myhacks as myh
 def run_checkGit(rootdir, all, fetch, outputformat):
     '''Output the status of git repos in the projs directory.'''
     if not rootdir:
-        rootdir = myh.PROJS_DIR 
+        rootdir = myh.PROJS_DIR
 
     repos = myh.find_repos(rootdir)
     print(f'Found {len(repos)} repos in {rootdir}.')

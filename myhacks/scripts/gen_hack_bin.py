@@ -26,7 +26,7 @@ if __name__ == '__main__':
 '''
 
 
-hack_bin_dir = myh.MYHACKS_DIR
+hack_bin_dir = myh.MYHACKSBIN_DIR
 
 @click.command()
 @click.argument('execname')
@@ -37,10 +37,10 @@ def gen_bin(execname):
     new_hack_bin = template.render(execname=execname,
                                    docstring = 'test docstring')
 
-    #print(f'new_hack_bin: \n{new_hack_bin}')
 
-    outfile = hack_bin_dir + execname
+    outfile = hack_bin_dir + execname + '.py'
 
+    print(f'Outputing {outfile}')
     with open(outfile, 'w') as f:
         f.write(new_hack_bin)
 
@@ -49,6 +49,11 @@ def gen_bin(execname):
     entry_point = f'{execname}=myhacks.scripts.{execname}:run_{execname}'
 
     print(f'entry_point: {entry_point}')
+
+    entrypoints_file = f'{myh.MYHACKS_DIR}entrypoints.txt'
+
+    with open(entrypoints_file, 'a') as f:
+        f.write(f'{entry_point}\n')
 
 
 if __name__ == '__main__':
