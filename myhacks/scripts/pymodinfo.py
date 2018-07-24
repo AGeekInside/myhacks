@@ -4,26 +4,24 @@ import os
 
 import myhacks as myh
 
+
 @click.command()
 @click.argument('module', required=True)
-@click.argument('internal/no-internal', default=False)
+@click.option('--internal/--no-internal', default=False)
 def run_pymodinfo(module, internal):
     '''Outputs information found about the specified module.'''
 
     try:
         work_module = importlib.import_module(module, package=None)
-        mod_info = dir(work_module)
+        mod_info = sorted(dir(work_module))
 
         for entry in mod_info:
             if internal:
-                print(f'entry')
-            elif 
-        print(f'{mod_info}')
+                print(f'{entry}')
+            elif not entry.startswith('__'):
+                print(f'{entry}')
     except Exception:
         print(f'Error importing {module}')
-
-
-    print('No code added to this hack yet.')
 
 
 if __name__ == '__main__':
