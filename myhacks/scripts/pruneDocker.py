@@ -2,8 +2,7 @@
 
 import myhacks as myh
 
-cmds = [ "docker container prune -f",
-         "docker image prune -f" ]
+cmds = ["docker container prune -f", "docker image prune -f"]
 
 for cmd in cmds:
     myh.run(cmd)

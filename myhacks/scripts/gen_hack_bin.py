@@ -6,7 +6,7 @@ import stat
 import myhacks as myh
 
 
-file_template = '''
+file_template = """
 
 import click
 import os
@@ -23,38 +23,37 @@ def run_{{ execname }}(parameter):
 
 if __name__ == '__main__':
     run_{{ execname }}()
-'''
+"""
 
 
 hack_bin_dir = myh.MYHACKSBIN_DIR
 
+
 @click.command()
-@click.argument('execname')
+@click.argument("execname")
 def gen_bin(execname):
-    '''Creates a stub for hack executables.'''
+    """Creates a stub for hack executables."""
 
     template = jinja2.Template(file_template)
-    new_hack_bin = template.render(execname=execname,
-                                   docstring = 'test docstring')
+    new_hack_bin = template.render(execname=execname, docstring="test docstring")
 
+    outfile = hack_bin_dir + execname + ".py"
 
-    outfile = hack_bin_dir + execname + '.py'
-
-    print(f'Outputing {outfile}')
-    with open(outfile, 'w') as f:
+    print(f"Outputing {outfile}")
+    with open(outfile, "w") as f:
         f.write(new_hack_bin)
 
     myh.make_executable(outfile)
 
-    entry_point = f'{execname}=myhacks.scripts.{execname}:run_{execname}'
+    entry_point = f"{execname}=myhacks.scripts.{execname}:run_{execname}"
 
-    print(f'entry_point: {entry_point}')
+    print(f"entry_point: {entry_point}")
 
-    entrypoints_file = f'{myh.MYHACKS_DIR}entrypoints.txt'
+    entrypoints_file = f"{myh.MYHACKS_DIR}entrypoints.txt"
 
-    with open(entrypoints_file, 'a') as f:
-        f.write(f'{entry_point}\n')
+    with open(entrypoints_file, "a") as f:
+        f.write(f"{entry_point}\n")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     gen_bin()

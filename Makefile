@@ -60,6 +60,9 @@ clean-images: ## Remove the docker images that have been written.
 lint: ## Check style with flake8
 	flake8 myhacks tests
 
+black: ## runs black formatter on all python
+	find . -name "*.py" -exec black {} +
+
 test: ## run tests on every Python version with tox
 	pytest
 

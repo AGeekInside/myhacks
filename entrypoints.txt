@@ -4,3 +4,6 @@ genhackbin=myhacks.scripts.gen_hack_bin:gen_bin
 currversion=myhacks.scripts.currentversion:run_currVersion
 gnvim=myhacks.scripts.gnvim:run_gnvim
 pymodinfo=myhacks.scripts.pymodinfo:run_pymodinfo
+fixwhitespace=myhacks.scripts.fixwhitespace:run_fixwhitespace
+splitter=myhacks.scripts.splitter:run_splitter
+lshacks=myhacks.scripts.lshacks:run_lshacks
