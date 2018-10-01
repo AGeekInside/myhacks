@@ -64,14 +64,14 @@ class Splitter:
 @click.command()
 @click.argument("input_file", required=True)
 @click.option("--line_limit", default=10000)
-@click.option("--keep_headers", default=False)
-def run_splitter(input_file, line_limit, keep_headers):
+@click.option("--headers/--no-headers", default=False)
+def run_splitter(input_file, line_limit, headers):
     """Create Splitter object and runs split on the specified input file."""
 
     print(
         f"Preparing to split {input_file} into files with {line_limit} lines per files."
     )
-    splitter = Splitter(input_file, line_limit=line_limit, keep_headers=keep_headers)
+    splitter = Splitter(input_file, line_limit=line_limit, keep_headers=headers)
 
     print(f"Spliter is {splitter}")
     splitter.split()
