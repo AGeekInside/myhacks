@@ -66,7 +66,7 @@ class Splitter:
 @click.option("--line_limit", default=10000)
 @click.option("--headers/--no-headers", default=False)
 def run_splitter(input_file, line_limit, headers):
-    """Create Splitter object and runs split on the specified input file."""
+    """Runs split on the specified input file.  Default of 10000 entries per new file."""
 
     print(
         f"Preparing to split {input_file} into files with {line_limit} lines per files."
