@@ -1,4 +1,4 @@
-__version__ = "15.0.0"
+__version__ = "16.0.0"
 
 from .hacks import compile_repo_info
 from .hacks import find_repos
