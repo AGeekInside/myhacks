@@ -119,3 +119,5 @@ build-libs: clean-lib ## builds required libraries for $(PROJ_NAME)
 
 build: build-libs dist ## Builds everything
 
+bumpversion: ## Bumps the version of the myhacks utils
+	bumpversion major
