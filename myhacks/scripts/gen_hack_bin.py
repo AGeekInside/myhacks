@@ -7,6 +7,8 @@ import myhacks as myh
 
 
 file_template = """
+#!/usr/bin/env python
+'''No docstring has been added yet.'''
 
 import click
 import os
