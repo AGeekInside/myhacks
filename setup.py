@@ -23,7 +23,16 @@ REQUIRES_PYTHON = ">=3.6.0"
 VERSION = "16.0.0"
 
 # What packages are required for this module to be executed?
-REQUIRED = ["ldap3", "better_exceptions", "click", "jinja2", "pytube", "tabulate", "tqdm"]
+REQUIRED = [
+    "environs",
+    "ldap3",
+    "better_exceptions",
+    "click",
+    "jinja2",
+    "pytube",
+    "tabulate",
+    "tqdm",
+]
 
 ENTRY_POINTS = []
 

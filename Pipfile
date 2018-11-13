@@ -14,6 +14,7 @@ tabulate = "*"
 "e1839a8" = {path = ".", editable = true}
 tqdm = "*"
 "ldap3" = "*"
+environs = "*"
 
 [dev-packages]
 bumpversion = "*"
