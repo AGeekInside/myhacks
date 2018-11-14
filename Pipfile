@@ -18,7 +18,6 @@ tqdm = "*"
 bumpversion = "*"
 ipython = "*"
 "e1839a8" = {path = ".", editable = true}
-myhacks = {editable = true, path = "."}
 
 [requires]
 python_version = "3.6"
