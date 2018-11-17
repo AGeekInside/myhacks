@@ -52,7 +52,9 @@ def run_dupcount(directory, dup_method):
     ]
 
     dup_filenames.sort(key=lambda tup: (tup[1], tup[0]))
-    print(tabulate(dup_filenames, headers=["Filename", "Count"]))
+
+    print(f'Found {len(dup_filenames)} duplicate(s).')
+    # print(tabulate(dup_filenames, headers=["Filename", "Count"]))
 
 
 if __name__ == "__main__":
