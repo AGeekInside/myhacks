@@ -5,6 +5,7 @@ from .hacks import find_repos
 from .hacks import get_hostname_ip
 from .hacks import make_executable
 from .hacks import HacksInfo
+from .hacks import list_files
 
 HACKS_INFO = HacksInfo()
 MYHACKS_DIR = "/home/mbrooks/projs/myhacks/"
@@ -18,5 +19,6 @@ __all__ = [
     "find_repos",
     "get_hostname_ip",
     "HacksInfo",
+    "list_files",
     "make_executable",
 ]

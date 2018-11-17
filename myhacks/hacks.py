@@ -254,3 +254,14 @@ def find_repos(root):
             repos.append(root)
 
     return repos
+
+
+def list_files(directory, recursive=True):
+    """Returns a list of files found in a given directory,  Defaults to a recursive
+    search."""
+
+    files = [f for f in os.walk(directory)]
+
+    print(f"Found {len(files)} files.")
+
+    return files

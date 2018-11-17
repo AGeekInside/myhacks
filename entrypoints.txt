@@ -9,3 +9,4 @@ splitter=myhacks.scripts.splitter:run_splitter
 lshacks=myhacks.scripts.lshacks:run_lshacks
 lspkg=myhacks.scripts.lspkg:run_lspkg
 finddups=myhacks.scripts.finddups:run_finddups
+dupcount=myhacks.scripts.dupcount:run_dupcount
