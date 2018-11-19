@@ -13,9 +13,9 @@ def count_occurences(files_info, dup_method):
     """Counts the occurences of files, using the dup_method specified."""
 
     if dup_method in ["name"]:
-        dup_method = lambda x,y: x
+        dup_method = lambda x, y: x
     elif dup_method in ["size"]:
-        dup_method = lambda x,y: os.stat(y)
+        dup_method = lambda x, y: os.stat(y)
     else:
         print(f"Duplication method {dup_method} not defined.  Defaulting to filename.")
         dup_method = lambda x: x
