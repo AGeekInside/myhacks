@@ -8,7 +8,7 @@ from .hacks import HacksInfo
 from .hacks import list_files
 
 HACKS_INFO = HacksInfo()
-MYHACKS_DIR = "/home/mbrooks/projs/myhacks/"
+MYHACKS_DIR = "/Users/mbrooks/projs/myhacks/"
 MYHACKSBIN_DIR = f"{MYHACKS_DIR}myhacks/scripts/"
 PROJS_DIR = "/home/mbrooks/projs/"
 OUTPUTS = ["fancy_grid", "grid", "psql", "presto", "simple"]

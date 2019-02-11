@@ -2,18 +2,17 @@
 """Hack to list the hacks in the system and their status."""
 
 import click
-import os
-
-import myhacks as myh
 
 
 @click.command()
 def run_lshacks():
     """Runs the lshacks hack to show the hacks installed."""
 
-    hacks_info = myh.HacksInfo()
-    hacks_dir = myh.__file__
-    print(f"Hacks in found in {hacks_dir}.")
+    from pkg_resources import iter_entry_points
+
+    for entry_point in iter_entry_points(group='console_scripts', name=None):
+        if 'myhacks' in entry_point.module_name:
+            print(f"{entry_point.name}")
 
 
 if __name__ == "__main__":

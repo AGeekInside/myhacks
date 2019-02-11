@@ -23,7 +23,15 @@ REQUIRES_PYTHON = ">=3.6.0"
 VERSION = "18.0.0"
 
 # What packages are required for this module to be executed?
-REQUIRED = ["better_exceptions", "click", "jinja2", "pytube", "tabulate", "tqdm"]
+REQUIRED = [
+    "better_exceptions",
+    "click",
+    "jinja2",
+    "pyparsing",
+    "pytube",
+    "tabulate",
+    "tqdm",
+]
 
 ENTRY_POINTS = []
 
