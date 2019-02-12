@@ -15,7 +15,7 @@ def run_lspkg(outputformat):
 
     pipfile = "Pipfile"
 
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(strict=False)
     config.read(pipfile)
 
     package_info = []
