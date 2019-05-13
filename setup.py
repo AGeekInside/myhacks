@@ -27,6 +27,7 @@ REQUIRED = [
     "better_exceptions",
     "click",
     "jinja2",
+    "mutmut",
     "pyparsing",
     "pytube",
     "tabulate",

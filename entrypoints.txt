@@ -12,3 +12,5 @@ finddups=myhacks.scripts.finddups:run_finddups
 dupcount=myhacks.scripts.dupcount:run_dupcount
 roll=myhacks.scripts.roll:run_roll
 checksetup=myhacks.scripts.checksetup:run_checksetup
+lsmut=myhacks.scripts.lsmut:run_lsmut
+foo=myhacks.scripts.foo:run_foo
