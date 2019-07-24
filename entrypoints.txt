@@ -13,3 +13,5 @@ dupcount=myhacks.scripts.dupcount:run_dupcount
 roll=myhacks.scripts.roll:run_roll
 checksetup=myhacks.scripts.checksetup:run_checksetup
 makedonothing=myhacks.scripts.makedonothing:run_makedonothing
+lsmut=myhacks.scripts.lsmut:run_lsmut
+foo=myhacks.scripts.foo:run_foo

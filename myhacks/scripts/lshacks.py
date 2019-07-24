@@ -10,8 +10,8 @@ def run_lshacks():
 
     from pkg_resources import iter_entry_points
 
-    for entry_point in iter_entry_points(group='console_scripts', name=None):
-        if 'myhacks' in entry_point.module_name:
+    for entry_point in iter_entry_points(group="console_scripts", name=None):
+        if "myhacks" in entry_point.module_name:
             print(f"{entry_point.name}")
 
 
