@@ -8,7 +8,7 @@ from .hacks import HacksInfo
 from .hacks import list_files
 
 HACKS_INFO = HacksInfo()
-MYHACKS_DIR = "/Users/mbrooks/projs/myhacks/"
+MYHACKS_DIR = "/home/mbrooks/projs/myhacks/"
 MYHACKSBIN_DIR = f"{MYHACKS_DIR}myhacks/scripts/"
 PROJS_DIR = "/home/mbrooks/projs/"
 OUTPUTS = ["fancy_grid", "grid", "psql", "presto", "simple"]
@@ -21,4 +21,28 @@ __all__ = [
     "HacksInfo",
     "list_files",
     "make_executable",
+    "file_template",
+    "tabspace",
 ]
+
+tabspace = '    '
+
+file_template = """
+#!/usr/bin/env python
+'''{{top_docstring}}'''
+
+import click
+import os
+
+import myhacks as myh
+
+@click.command()
+@click.argument('parameter', required=False)
+def run_{{ execname }}(parameter):
+    \'\'\'{{ docstring }}\'\'\'
+
+{{code_body}} 
+
+if __name__ == '__main__':
+    run_{{ execname }}()
+"""
