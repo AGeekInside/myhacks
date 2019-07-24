@@ -24,7 +24,7 @@ def get_filename(name=None):
     """Prompts for the filename to use for the do-nothin"""
 
     if name:
-        default = name+'.py'
+        default = 'dn_'+name+'.py'
     else:
         default = ''
 
