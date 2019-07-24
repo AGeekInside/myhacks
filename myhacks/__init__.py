@@ -34,8 +34,6 @@ file_template = """
 import click
 import os
 
-import myhacks as myh
-
 @click.command()
 @click.argument('parameter', required=False)
 def run_{{ execname }}(parameter):
