@@ -28,6 +28,7 @@ REQUIRED = [
     "click",
     "jinja2",
     "mutmut",
+    "prompt_toolkit",
     "pyparsing",
     "pytube",
     "tabulate",
