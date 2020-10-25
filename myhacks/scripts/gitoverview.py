@@ -20,6 +20,8 @@ def run_checkGit(rootdir, all, fetch, outputformat):
 
     repo_info = myh.compile_repo_info(repos, all=all, fetch=fetch)
 
+    if len(repo_info) < 1:
+        print("Found no repos that matched specified settings.")
     print(tabulate(repo_info, headers="keys", tablefmt=outputformat))
 
 
