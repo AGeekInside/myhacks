@@ -16,37 +16,23 @@ from setuptools import find_packages, setup, Command
 # Package meta-data.
 NAME = "myhacks"
 DESCRIPTION = "My hacks for various things."
-URL = "https://github.com/me/myproject"
+URL = "https://github.com/AGeekInside/myhacks"
 EMAIL = "marcwbrooks@gmail.com"
 AUTHOR = "Marc Brooks"
 REQUIRES_PYTHON = ">=3.6.0"
 VERSION = "21.0.0"
 
 # What packages are required for this module to be executed?
-REQUIRED = [
-    "better_exceptions",
-    "click",
-    "jinja2",
-    "mutmut",
-    "prompt_toolkit",
-    "pyparsing",
-    "pytube",
-    "tabulate",
-    "tqdm",
-]
-
-ENTRY_POINTS = []
 
 here = os.path.abspath(os.path.dirname(__file__))
 
+REQUIRED = []
+with open(path.join(here, "requirements.txt"), "r", encoding="utf=8") as f:
+    REQUIRED = f.read().split("\n")
+
+ENTRY_POINTS = []
 with open(path.join(here, "entrypoints.txt"), encoding="utf-8") as f:
     ENTRY_POINTS = f.read().split("\n")
-
-# The rest you shouldn't have to touch too much :)
-# ------------------------------------------------
-# Except, perhaps the License and Trove Classifiers!
-# If you do change the License, remember to change the Trove Classifier for that!
-
 
 # Import the README and use it as the long-description.
 # Note: this will only work if 'README.md' is present in your MANIFEST.in file!
@@ -110,8 +96,6 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=find_packages(exclude=("tests",)),
-    # If your package is a single module, use this instead of 'packages':
-    # py_modules=['mypackage'],
     entry_points={"console_scripts": ENTRY_POINTS},
     install_requires=REQUIRED,
     include_package_data=True,
