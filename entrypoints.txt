@@ -16,3 +16,6 @@ makedonothing=myhacks.scripts.makedonothing:run_makedonothing
 lsmut=myhacks.scripts.lsmut:run_lsmut
 foo=myhacks.scripts.foo:run_foo
 fixNames=myhacks.scripts.fixNames:run_fixNames
+parseFeedSpot=myhacks.scripts.parseFeedSpot:run_parseFeedSpot
+consolidateFiles=myhacks.scripts.consolidateFiles:run_consolidateFiles
+removeNumbers=myhacks.scripts.removeNumbers:run_removeNumbers

@@ -17,6 +17,17 @@ def is_all_digits(s):
     """
     return s.isdigit()
 
+
+def has_spaces(s):
+    """
+    Check if the string has spaces.
+    
+    :param s: Input string
+    :return: True if the string has spaces, False otherwise
+    """
+    return ' ' in s
+
+
 def removeLeadingNumbers(pdf_files):
     proposed_names = []
     for file in pdf_files:
@@ -30,17 +41,22 @@ def removeLeadingNumbers(pdf_files):
         shutil.copy(file, proposed_name)
     return proposed_names 
 
+
 def generateNames(pdf_files):
+    print(len(pdf_files), "PDF files found.")
     proposed_names = []
     for file in pdf_files:
-        split = str.split(file, "-")
+        print(f"Old name: {file}")
+        split = str.split(file, "_")
         if len(split) > 1:
-            proposed_name = str.split(file, "-")[-1].strip()
+            proposed_name = str.split(file, "_")[-1].strip()
+            print(f"Old name: {file}")
+            print(f"New name: {proposed_name}")
             proposed_names.append({
                 "old": file,
                 "new": proposed_name
             })
-            shutil.copy(file, proposed_name)
+            shutil.move(file, proposed_name)
     return proposed_names
 
 
@@ -80,6 +96,7 @@ def rmText(pdf_files):
         shutil.copy(file, proposed_name)
     return proposed_names
 
+
 def ddProcess(pdf_files):
     print("Processing Daredevil files.")
 
@@ -95,6 +112,22 @@ def ddProcess(pdf_files):
             shutil.move(file, proposed_name)
 
 
+def dragonProcess(pdf_files):
+    print("Processing Dragon Magazine files.")
+
+    for file in pdf_files:
+        proposed_name = file
+        if not has_spaces(file):
+            print(f"Old name: {file}")
+            issue_number = file.split(".")[0][-3:]
+            proposed_name = f"Dragon Magazine {issue_number}.pdf"  
+            print(f"New name: {proposed_name}")
+            shutil.move(file, proposed_name)
+        else:
+            print(f"Skipping {file}")
+
+
+
 @click.command()
 @click.argument('runmode', required=False)
 def run_fixNames(runmode):
@@ -104,6 +137,9 @@ def run_fixNames(runmode):
     files = os.listdir('.')
     pdf_files = [file for file in files if file.endswith('.pdf')]
     cbz_files = [file for file in files if file.endswith('.cbz')]
+
+    print(len(pdf_files), "PDF files found.")
+    print(len(cbz_files), "CBZ files found.")  
 
     if runmode == 'leading_nums':
         print('Running in remove numbers mode')
@@ -124,6 +160,9 @@ def run_fixNames(runmode):
         print('Running in fix Daredevil mode')
         proposed_names = ddProcess(cbz_files)
         proposed_names = ddProcess(pdf_files)
+    elif runmode == "dragon":
+        print('Running in fix Dragon Magazine mode')
+        proposed_names = dragonProcess(pdf_files)
     else:
         print('No mode specified')
         proposed_names = []
