@@ -84,6 +84,49 @@ def fixFRNames(pdf_files):
             shutil.copy(file, proposed_name)
     return proposed_names
 
+def fixDRNames(pdf_files):
+    proposed_names = []
+    for file in pdf_files:
+        if "_" in file:
+            proposed_name = " ".join(str.split(file, "_")[1:]).strip() 
+            proposed_names.append({
+                "old": file,
+                "new": proposed_name
+            })
+            shutil.move(file, proposed_name)
+        elif ".pdf.pdf" in file:
+            proposed_name = file.replace(".pdf.pdf", ".pdf")
+            proposed_names.append({
+                "old": file,
+                "new": proposed_name
+            })
+            shutil.move(file, proposed_name)
+        else:
+            print(file)
+            new_dir, new_file = str.split(file, "00")
+            if "-" in new_file:
+                num, new_file = str.split(new_file, "-")
+            elif "  " in new_file:
+                num, new_file = str.split(new_file, "  ")
+            new_file = new_file.strip()
+            if "  " in new_dir:
+                new_dir = str.split(new_dir, " ")[0]
+            new_dir = new_dir.strip()
+            new_file = new_file.split(".")[0] + " 00" + num.strip() + "." + new_file.split(".")[-1]
+            print(f"{new_file=}")
+            print(f"{new_dir=}")
+
+            if not os.path.exists(new_dir):
+                os.mkdir(new_dir)
+            shutil.move(file, new_dir + "/" + new_file)
+            # name, extension = new_file.split(".")
+            # proposed_name = name + " 00" + num+extension 
+            # proposed_names.append({
+                # "old": file,
+                # "new": proposed_name
+            # })
+    print(proposed_names)
+    return proposed_names
 
 def rmText(pdf_files):
     proposed_names = []
@@ -136,6 +179,7 @@ def run_fixNames(runmode):
         # Get the list of files in the current directory
     files = os.listdir('.')
     pdf_files = [file for file in files if file.endswith('.pdf')]
+    epub_files = [file for file in files if file.endswith('.epub')]
     cbz_files = [file for file in files if file.endswith('.cbz')]
 
     print(len(pdf_files), "PDF files found.")
@@ -163,6 +207,10 @@ def run_fixNames(runmode):
     elif runmode == "dragon":
         print('Running in fix Dragon Magazine mode')
         proposed_names = dragonProcess(pdf_files)
+    elif runmode == "d-lance":
+        print('Running in fix Dragonlance mode')
+        proposed_names = fixDRNames(pdf_files)
+        proposed_names = fixDRNames(epub_files)
     else:
         print('No mode specified')
         proposed_names = []

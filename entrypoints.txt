@@ -19,3 +19,4 @@ fixNames=myhacks.scripts.fixNames:run_fixNames
 parseFeedSpot=myhacks.scripts.parseFeedSpot:run_parseFeedSpot
 consolidateFiles=myhacks.scripts.consolidateFiles:run_consolidateFiles
 removeNumbers=myhacks.scripts.removeNumbers:run_removeNumbers
+bcrypt=myhacks.scripts.bcrypt:run_bcrypt

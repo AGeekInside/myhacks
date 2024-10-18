@@ -7,3 +7,4 @@ pyparsing
 pytube
 tabulate
 tqdm
+bcrypt
